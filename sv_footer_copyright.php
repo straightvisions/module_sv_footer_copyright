@@ -19,10 +19,10 @@
 				->register_scripts()
 				->register_sidebars()
 				->set_section_title( __( 'Footer Copyright', 'sv100' ) )
-				->set_section_desc( __( 'Widget & Colos Settings', 'sv100' ) )
+				->set_section_desc( __( 'Widget & Color Settings', 'sv100' ) )
 				->set_section_type( 'settings' )
 				->set_section_template_path( $this->get_path( 'lib/backend/tpl/settings.php' ) )
-				->set_section_order(40 )
+				->set_section_order(41 )
 				->get_root()
 				->add_section( $this );
 		}
