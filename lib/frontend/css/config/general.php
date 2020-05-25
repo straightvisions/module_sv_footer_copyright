@@ -3,8 +3,8 @@
 echo $_s->build_css(
 	'.sv100_sv_footer_copyright_wrapper',
 	array_merge(
-		$script->get_parent()->get_setting('bg_color')->get_css_data('background-color'),
-		$script->get_parent()->get_setting('border')->get_css_data()
+		$script->get_parent()->get_setting('border')->get_css_data(),
+		$script->get_parent()->get_setting('bg_color')->get_css_data('background-color')
 	)
 );
 
