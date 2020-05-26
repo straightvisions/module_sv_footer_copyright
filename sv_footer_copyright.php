@@ -35,11 +35,6 @@
 
 		protected function load_settings_general(): sv_footer_copyright {
 			// General
-			$this->get_setting( 'active' )
-				->set_title( __( 'Active', 'sv100' ) )
-				->set_default_value( 1 )
-				->load_type( 'checkbox' );
-
 			$this->get_setting( 'max_width' )
 				->set_title( __( 'Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the Header', 'sv100' ) )
@@ -190,6 +185,20 @@
 			return $this;
 		}
 
+		public function has_footer_content(): bool {
+			$check = false;
+			if ( $this->get_module( 'sv_sidebar' ) ) {
+
+				for ( $i = 1; $i < 3; $i++ ) {
+					if ( $this->get_module( 'sv_sidebar' )->load( array( 'id' => $this->get_module_name() . '_'.$i ) ) ) {
+						$check = true;
+					}
+				}
+			}
+
+			return $check;
+		}
+
 		public function load( $settings = array() ): string {
 			$settings = shortcode_atts(
 				array(
@@ -199,12 +208,12 @@
 				$this->get_module_name()
 			);
 
-			return $this->load_template( $settings );
+			return $this->load_template();
 		}
 
 		// Loads the templates
-		protected function load_template( array $settings ): string {
-			if ( ! boolval( $this->get_setting( 'active' )->get_data() ) ) return '';
+		protected function load_template(): string {
+			if ( ! $this->has_footer_content() ) return '';
 
 			ob_start();
 
