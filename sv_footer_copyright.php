@@ -1,26 +1,17 @@
 <?php
 	namespace sv100;
-	
-	/**
-	 * @version         4.000
-	 * @author			straightvisions GmbH
-	 * @package			sv100
-	 * @copyright		2019 straightvisions GmbH
-	 * @link			https://straightvisions.com
-	 * @since			4.000
-	 * @license			See license.txt or https://straightvisions.com
-	 */
-	
+
 	class sv_footer_copyright extends init {
 		public function init() {
 			$this->set_module_title( __( 'SV Footer Copyright', 'sv100' ) )
 				->set_module_desc( __( 'Manages the footer copyright bar.', 'sv100' ) )
-				->register_sidebars()
-				->set_section_title( __( 'Footer Copyright', 'sv100' ) )
-				->set_section_desc( __( 'Widget & Color Settings', 'sv100' ) )
+				->set_css_cache_active()
+				->set_section_title( $this->get_module_title() )
+				->set_section_desc( $this->get_module_desc() )
 				->set_section_type( 'settings' )
-				->set_section_template_path( $this->get_path( 'lib/backend/tpl/settings.php' ) )
-				->set_section_order(41 )
+				->set_section_template_path()
+				->set_section_order(5000)
+				->register_sidebars()
 				->get_root()
 				->add_section( $this );
 		}
@@ -30,7 +21,6 @@
 
 			return $this;
 		}
-
 		protected function load_settings_general(): sv_footer_copyright {
 			// General
 			$this->get_setting( 'max_width' )
@@ -150,20 +140,6 @@
 
 			return $this;
 		}
-	
-		protected function register_scripts(): sv_footer_copyright {
-			// Register Styles
-			$this->get_script( 'common' )
-				->set_path( 'lib/frontend/css/common.css' );
-			
-			// Inline Config
-			$this->get_script( 'config' )
-				 ->set_path( 'lib/frontend/css/config.php' )
-				 ->set_inline( true );
-	
-			return $this;
-		}
-
 		protected function register_sidebars(): sv_footer_copyright {
 			if ( $this->get_module( 'sv_sidebar' ) ) {
 				$this->get_module( 'sv_sidebar' )
@@ -198,38 +174,21 @@
 		}
 
 		public function load( $settings = array() ): string {
-			$settings = shortcode_atts(
-				array(
-					'inline' => true,
-				),
-				$settings,
-				$this->get_module_name()
-			);
-
-			return $this->load_template();
-		}
-
-		// Loads the templates
-		protected function load_template(): string {
-			if ( ! $this->has_footer_content() ) return '';
-
 			if(!is_admin()){
 				$this->load_settings()->register_scripts();
+
+				if ( $this->has_footer_content() ) {
+					foreach($this->get_scripts() as $script){
+						$script->set_is_enqueued();
+					}
+				}else{
+					$this->get_script( 'credits' )->set_is_enqueued();
+				}
 			}
 
 			ob_start();
-
-			// Loads the scripts
-			$this->get_script( 'common' )->set_is_enqueued();
-			$this->get_script( 'config' )->set_is_enqueued();
-
-			// Loads the template
-			$path = $this->get_path('lib/frontend/tpl/default.php' );
-
-			require ( $path );
-			$output	= ob_get_contents();
-
-			ob_end_clean();
+			require ( $this->get_path('lib/tpl/frontend/default.php' ) );
+			$output							= ob_get_clean();
 
 			return $output;
 		}
