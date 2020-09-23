@@ -174,10 +174,16 @@
 		}
 
 		public function load( $settings = array() ): string {
+			$output		= '';
 			if(!is_admin()){
 				$this->load_settings()->register_scripts();
 
 				if ( $this->has_footer_content() ) {
+
+					ob_start();
+					require ( $this->get_path('lib/tpl/frontend/default.php' ) );
+					$output							= ob_get_clean();
+
 					foreach($this->get_scripts() as $script){
 						$script->set_is_enqueued();
 					}
@@ -185,11 +191,6 @@
 					$this->get_script( 'credits' )->set_is_enqueued();
 				}
 			}
-
-			ob_start();
-			require ( $this->get_path('lib/tpl/frontend/default.php' ) );
-			$output							= ob_get_clean();
-
 			return $output;
 		}
 	}
