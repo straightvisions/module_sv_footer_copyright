@@ -176,9 +176,10 @@
 		public function load( $settings = array() ): string {
 			$output		= '';
 			if(!is_admin()){
-				$this->load_settings()->register_scripts();
+				$this->load_settings();
 
 				if ( $this->has_footer_content() ) {
+					$this->register_scripts();
 
 					ob_start();
 					require ( $this->get_path('lib/tpl/frontend/default.php' ) );
