@@ -71,10 +71,10 @@
 				->set_title( __( 'Margin', 'sv100' ) )
 				->set_is_responsive( true )
 				->set_default_value( array(
-					'top'       => '0',
-					'right'     => 'auto',
-					'bottom'    => '0',
-					'left'      => 'auto',
+					'top'	   => '0',
+					'right'	 => 'auto',
+					'bottom'	=> '0',
+					'left'	  => 'auto',
 				) )
 				->load_type( 'margin' );
 
@@ -82,10 +82,10 @@
 				->set_title( __( 'Padding', 'sv100' ) )
 				->set_is_responsive( true )
 				->set_default_value( array(
-					'top'       => '10px',
-					'right'     => '15px',
-					'bottom'    => '10px',
-					'left'      => '15px',
+					'top'	   => '10px',
+					'right'	 => '15px',
+					'bottom'	=> '10px',
+					'left'	  => '15px',
 				) )
 				->load_type( 'margin' );
 
@@ -129,7 +129,7 @@
 				$this->get_setting( 'sidebar_' . $i . '_alignment_content' )
 					->set_title( __( 'Copyright - ' . $i, 'sv100' ) )
 					->set_options( array(
-						'left'	    => __( 'Left', 'sv100' ),
+						'left'		=> __( 'Left', 'sv100' ),
 						'center'	=> __( 'Center', 'sv100' ),
 						'right'		=> __( 'Right', 'sv100' ),
 					) )
