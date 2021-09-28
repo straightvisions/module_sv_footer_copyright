@@ -11,7 +11,6 @@
 				->set_section_template_path()
 				->set_section_order(4100)
 				->set_section_icon('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg>')
-				->register_sidebars()
 				->get_root()
 				->add_section( $this );
 		}
@@ -113,6 +112,12 @@
 				->load_type( 'select' );
 
 			for ( $i = 1; $i < 3; $i++ ) {
+				$this->get_setting( 'sidebar_'.$i )
+					->set_title( __( 'Sidebar 1', 'sv100' ) )
+					->set_description( __( 'Select Sidebar for this position.', 'sv100' ) )
+					->set_options( $this->get_module('sv_sidebar') ? $this->get_module('sv_sidebar')->get_sidebars_for_settings_options() : array('' => __('Please activate module SV Sidebar for this Feature.', 'sv100')) )
+					->load_type( 'select' );
+
 				$this->get_setting( 'sidebar_' . $i . '_alignment' )
 					->set_title( __( 'Copyright - ' . $i, 'sv100' ) )
 					->set_options( array(
@@ -140,35 +145,21 @@
 
 			return $this;
 		}
-		protected function register_sidebars(): sv_footer_copyright {
-			if ( $this->get_module( 'sv_sidebar' ) ) {
-				$this->get_module( 'sv_sidebar' )
-					->create( $this, $this->get_prefix(1) )
-					->set_title( __( 'Copyright - 1', 'sv100' ) )
-					->set_desc( __( 'Widgets in this sidebar will be shown.', 'sv100' ) )
-					->load_sidebar()
-
-					->create( $this, $this->get_prefix(2) )
-					->set_title( __( 'Copyright - 2', 'sv100' ) )
-					->set_desc( __( 'Widgets in this sidebar will be shown.', 'sv100' ) )
-					->load_sidebar();
-			}
-
-			return $this;
-		}
 
 		public function has_footer_content(): bool {
-			$check = false;
-			if ( $this->get_module( 'sv_sidebar' ) ) {
-
-				for ( $i = 1; $i < 3; $i++ ) {
-					if ( $this->get_module( 'sv_sidebar' )->load( $this->get_prefix($i) ) ) {
-						$check = true;
-					}
-				}
+			if ( !$this->get_module( 'sv_sidebar' ) ) {
+				return false;
 			}
 
-			return $check;
+			if( $this->get_module( 'sv_sidebar' )->load( $this->get_setting('sidebar_1')->get_data() ) ) {
+				return true;
+			}
+
+			if( $this->get_module( 'sv_sidebar' )->load( $this->get_setting('sidebar_2')->get_data() ) ) {
+				return true;
+			}
+
+			return false;
 		}
 
 		public function load( $settings = array() ): string {
