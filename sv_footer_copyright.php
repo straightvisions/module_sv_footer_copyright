@@ -65,6 +65,56 @@
 				->set_is_responsive( true )
 				->load_type( 'color' );
 
+			// Links
+
+			$this->get_setting( 'text_color_link' )
+				->set_title( __( 'Color', 'sv100' ) )
+				->set_default_value( $this->get_module('sv_common') ? $this->get_module('sv_common')->get_setting('text_color_link')->get_data() : false )
+				->set_is_responsive(true)
+				->load_type( 'color' );
+
+			$this->get_setting( 'text_color_link_hover' )
+				->set_title( __( 'Color', 'sv100' ) )
+				->set_default_value( $this->get_module('sv_common') ? $this->get_module('sv_common')->get_setting('text_color_link_hover')->get_data() : false )
+				->set_is_responsive(true)
+				->load_type( 'color' );
+
+			$this->get_setting( 'text_deco_link' )
+				->set_title( __( 'Decoration', 'sv100' ) )
+				->set_default_value( $this->get_module('sv_common') ? $this->get_module('sv_common')->get_setting('text_deco_link')->get_data() : false )
+				->set_options( array(
+					'none'			=> __( 'None', 'sv100' ),
+					'underline'		=> __( 'Underline', 'sv100' ),
+					'line-through'	=> __( 'Line Through', 'sv100' ),
+					'overline'		=> __( 'Overline', 'sv100' ),
+				) )
+				->set_is_responsive(true)
+				->load_type( 'select' );
+
+			$this->get_setting( 'text_deco_link_hover' )
+				->set_title( __( 'Decoration', 'sv100' ) )
+				->set_default_value( $this->get_module('sv_common') ? $this->get_module('sv_common')->get_setting('text_deco_link_hover')->get_data() : false )
+				->set_options( array(
+					'none'			=> __( 'None', 'sv100' ),
+					'underline'		=> __( 'Underline', 'sv100' ),
+					'line-through'	=> __( 'Line Through', 'sv100' ),
+					'overline'		=> __( 'Overline', 'sv100' ),
+				) )
+				->set_is_responsive(true)
+				->load_type( 'select' );
+
+			$this->get_setting( 'text_bg_color_link' )
+				->set_title( __( 'Background Color', 'sv100' ) )
+				->set_default_value( '0,0,0,0' )
+				->set_is_responsive(true)
+				->load_type( 'color' );
+
+			$this->get_setting( 'text_bg_color_link_hover' )
+				->set_title( __( 'Background Color', 'sv100' ) )
+				->set_default_value( '0,0,0,0' )
+				->set_is_responsive(true)
+				->load_type( 'color' );
+
 			// Spacing
 			$this->get_setting( 'margin' )
 				->set_title( __( 'Margin', 'sv100' ) )
