@@ -12,10 +12,6 @@
 		'.sv100_sv_footer_copyright_wrapper .sv100_sv_footer_copyright_inner',
 		array_merge(
 			$module->get_setting('max_width')->get_css_data('max-width'),
-			$module->get_setting('font')->get_css_data('font-family'),
-			$module->get_setting('font_size')->get_css_data('font-size','','px'),
-			$module->get_setting('line_height')->get_css_data('line-height'),
-			$module->get_setting('text_color')->get_css_data(),
 			$module->get_setting('direction')->get_css_data('flex-direction'),
 			$module->get_setting('margin')->get_css_data(),
 			$module->get_setting('padding')->get_css_data('padding')
