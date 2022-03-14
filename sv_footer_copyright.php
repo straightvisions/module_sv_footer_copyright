@@ -84,7 +84,7 @@
 
 			for ( $i = 1; $i < 3; $i++ ) {
 				$this->get_setting( 'sidebar_'.$i )
-					->set_title( __( 'Sidebar 1', 'sv100' ) )
+					->set_title( __( 'Sidebar - ' . $i, 'sv100' ) )
 					->set_description( __( 'Select Sidebar for this position.', 'sv100' ) )
 					->set_options( $this->get_module('sv_sidebar') ? $this->get_module('sv_sidebar')->get_sidebars_for_settings_options() : array('' => __('Please activate module SV Sidebar for this Feature.', 'sv100')) )
 					->load_type( 'select' );
