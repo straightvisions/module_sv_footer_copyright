@@ -1,9 +1,7 @@
 <?php
 	echo $_s->build_css(
 		is_admin()
-			? '
-			div[data-widget-area-id="'.$module->get_setting('sidebar')->get_data().'"] > .block-editor-block-list__layout,
-			'
+			? 'div[data-widget-area-id="'.$module->get_setting('sidebar')->get_data().'"] > .block-editor-block-list__layout'
 			: '.sv100_sv_footer_copyright_wrapper',
 		array_merge(
 			$module->get_setting('border')->get_css_data(),
