@@ -11,16 +11,11 @@
 				->set_section_template_path()
 				->set_section_order(4100)
 				->set_section_icon('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg>')
+				->load_settings()
 				->get_root()
 				->add_section( $this );
 		}
-		
 		protected function load_settings(): sv_footer_copyright {
-			$this->load_settings_general()->load_settings_sidebars();
-
-			return $this;
-		}
-		protected function load_settings_general(): sv_footer_copyright {
 			// General
 			$this->get_setting( 'max_width' )
 				->set_title( __( 'Max Width', 'sv100' ) )
@@ -66,53 +61,11 @@
 				->set_is_responsive(true)
 				->load_type( 'border' );
 
-			return $this;
-		}
-
-		protected function load_settings_sidebars(): sv_footer_copyright {
-			// Columns
-			$this->get_setting( 'direction' )
-				->set_title( __( 'Content Direction', 'sv100' ) )
-				->set_options( array(
-					'row'		=> __( 'Horizontal', 'sv100' ),
-					'column'	=> __( 'Vertical', 'sv100' ),
-				) )
-				->set_default_value( 'row' )
-				->set_description( __( 'The direction of columns.', 'sv100' ) )
-				->set_is_responsive( true )
+			$this->get_setting( 'sidebar' )
+				->set_title( __( 'Sidebar', 'sv100' ) )
+				->set_description( __( 'Select Sidebar for this position.', 'sv100' ) )
+				->set_options( $this->get_module('sv_sidebar') ? $this->get_module('sv_sidebar')->get_sidebars_for_settings_options() : array('' => __('Please activate module SV Sidebar for this Feature.', 'sv100')) )
 				->load_type( 'select' );
-
-			for ( $i = 1; $i < 3; $i++ ) {
-				$this->get_setting( 'sidebar_'.$i )
-					->set_title( __( 'Sidebar - ' . $i, 'sv100' ) )
-					->set_description( __( 'Select Sidebar for this position.', 'sv100' ) )
-					->set_options( $this->get_module('sv_sidebar') ? $this->get_module('sv_sidebar')->get_sidebars_for_settings_options() : array('' => __('Please activate module SV Sidebar for this Feature.', 'sv100')) )
-					->load_type( 'select' );
-
-				$this->get_setting( 'sidebar_' . $i . '_alignment' )
-					->set_title( __( 'Copyright - ' . $i, 'sv100' ) )
-					->set_options( array(
-						'flex-start'	=> __( 'Left', 'sv100' ),
-						'center'		=> __( 'Center', 'sv100' ),
-						'flex-end'		=> __( 'Right', 'sv100' )
-					) )
-					->set_default_value( 'flex-start' )
-					->set_is_responsive( true )
-					->load_type( 'select' );
-			}
-
-			for ( $i = 1; $i < 3; $i++ ) {
-				$this->get_setting( 'sidebar_' . $i . '_alignment_content' )
-					->set_title( __( 'Copyright - ' . $i, 'sv100' ) )
-					->set_options( array(
-						'left'		=> __( 'Left', 'sv100' ),
-						'center'	=> __( 'Center', 'sv100' ),
-						'right'		=> __( 'Right', 'sv100' ),
-					) )
-					->set_default_value( 'center' )
-					->set_is_responsive( true )
-					->load_type( 'select' );
-			}
 
 			return $this;
 		}
@@ -122,11 +75,7 @@
 				return false;
 			}
 
-			if( $this->get_module( 'sv_sidebar' )->load( $this->get_setting('sidebar_1')->get_data() ) ) {
-				return true;
-			}
-
-			if( $this->get_module( 'sv_sidebar' )->load( $this->get_setting('sidebar_2')->get_data() ) ) {
+			if( $this->get_module( 'sv_sidebar' )->load( $this->get_setting('sidebar')->get_data() ) ) {
 				return true;
 			}
 
