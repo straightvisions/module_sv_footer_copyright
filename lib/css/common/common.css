@@ -3,6 +3,7 @@
 }
 .sv100_sv_footer_copyright_wrapper .sv100_sv_footer_copyright_inner {
 	display: flex;
+	margin:0 auto;
 }
 .sv100_sv_footer_copyright_wrapper .sv100_sv_footer_copyright_inner > div {
 	width:100%;
