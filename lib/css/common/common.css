@@ -2,8 +2,8 @@
 	width: 100%;
 }
 .sv100_sv_footer_copyright_wrapper .sv100_sv_footer_copyright_inner {
-	display: flex;
 	margin:0 auto;
+	padding:0 var(--sv100_sv_common-spacing);
 }
 .sv100_sv_footer_copyright_wrapper .sv100_sv_footer_copyright_inner > div {
 	width:100%;
