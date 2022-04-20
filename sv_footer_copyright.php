@@ -76,7 +76,7 @@
 			}
 			return $output;
 		}
-		private function add_metaboxes(): sv_footer_COPYRIGHT{
+		private function add_metaboxes(): sv_footer_copyright{
 			$this->metaboxes			= $this->get_root()->get_module('sv_metabox');
 
 			$states						= $this->get_module('sv_sidebar') ? $this->get_module('sv_sidebar')->get_sidebars_for_metabox_options() : array('' => __('Please activate module SV Sidebar for this Feature.', 'sv100'));
